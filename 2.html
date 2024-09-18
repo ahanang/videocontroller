@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YouTube Video Segment Player</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    #player {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <!-- The <iframe> (and video player) will replace this <div> tag. -->
+  <div id="player"></div>
+
+  <script>
+    // Load the IFrame Player API code asynchronously.
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // This function creates an <iframe> (and YouTube player)
+    // after the API code downloads.
+    var player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '360',
+        width: '640',
+        videoId: 'ukeJG_oGv10',
+        playerVars: {
+          'autoplay': 1,
+          'controls': 1,
+          'start': 90
+        },
+        events: {
+          'onReady': onPlayerReady
+        }
+      });
+    }
+
+    // The API will call this function when the video player is ready.
+    function onPlayerReady(event) {
+      // Start the video
+      event.target.playVideo();
+      // Stop the video at 350 seconds
+      setTimeout(function(){
+        event.target.stopVideo();
+      }, (350 - 90) * 1000); // time difference in milliseconds
+    }
+  </script>
+</body>
+</html>
